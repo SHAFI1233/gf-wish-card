@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My GHUniya - Girlfriend Day</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap');
+
+body {
+font-family: 'Arial', sans-serif;
+background-color: #ffebee;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+margin: 0;
+overflow: hidden;
+transition: background-color 1s;
+}
+
+.page {
+width: 90%;
+max-width: 500px;
+background-color: white;
+border-radius: 15px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+padding: 30px;
+text-align: center;
+position: absolute;
+transform: scale(0) rotate(-5deg);
+opacity: 0;
+transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+overflow: hidden;
+background-image: linear-gradient(to bottom, #fff, #ffe6ee);
+}
+
+.page.active {
+transform: scale(1) rotate(0deg);
+opacity: 1;
+z-index: 10;
+animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+0%, 100% { transform: translateY(0) rotate(0deg); }
+50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+h1 {
+color: #e91e63;
+margin-bottom: 20px;
+font-size: 32px;
+font-family: 'Pacifico', cursive;
+text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+p {
+color: #555;
+line-height: 1.8;
+margin-bottom: 15px;
+font-size: 18px;
+text-align: left;
+}
+
+.heart {
+color: #e91e63;
+font-size: 50px;
+animation: heartbeat 1s infinite;
+display: inline-block;
+margin: 20px 0;
+filter: drop-shadow(0 0 5px rgba(233, 30, 99, 0.5));
+}
+
+.names {
+font-weight: bold;
+color: #e91e63;
+font-size: 26px;
+margin: 15px 0;
+font-family: 'Dancing Script', cursive;
+text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+.signature {
+font-style: italic;
+margin-top: 30px;
+color: #888;
+font-family: 'Dancing Script', cursive;
+font-size: 22px;
+}
+
+.hearts-container {
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+pointer-events: none;
+z-index: -1;
+}
+
+.heart-particle {
+position: absolute;
+color: #ff4081;
+font-size: 24px;
+opacity: 0;
+animation: float-up 4s linear forwards;
+filter: drop-shadow(0 0 3px rgba(255, 64, 129, 0.5));
+}
+
+@keyframes heartbeat {
+0% { transform: scale(1); }
+25% { transform: scale(1.2); }
+50% { transform: scale(1); }
+75% { transform: scale(1.2); }
+100% { transform: scale(1); }
+}
+
+@keyframes float-up {
+0% {
+transform: translateY(100vh) rotate(0deg);
+opacity: 1;
+}
+100% {
+transform: translateY(-20vh) rotate(360deg);
+opacity: 0;
+}
+}
+
+/* Choice page styles */
+.choice-container {
+display: flex;
+justify-content: space-around;
+margin: 30px 0;
+}
+
+.choice {
+width: 120px;
+height: 120px;
+border-radius: 50%;
+background-color: #f8bbd0;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+transition: all 0.3s;
+font-size: 60px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+animation: pulse 2s infinite;
+}
+
+.choice:hover {
+transform: scale(1.1);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.05); }
+100% { transform: scale(1); }
+}
+
+.loser-message {
+color: #f44336;
+font-weight: bold;
+font-size: 24px;
+margin-top: 20px;
+animation: shake 0.5s;
+display: none;
+font-family: 'Dancing Script', cursive;
+}
+
+@keyframes shake {
+0%, 100% { transform: translateX(0); }
+20%, 60% { transform: translateX(-10px); }
+40%, 80% { transform: translateX(10px); }
+}
+
+.next-button {
+background-color: #e91e63;
+color: white;
+border: none;
+padding: 12px 25px;
+border-radius: 50px;
+font-size: 16px;
+cursor: pointer;
+margin-top: 20px;
+transition: all 0.3s;
+box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+font-family: 'Pacifico', cursive;
+}
+
+.next-button:hover {
+background-color: #c2185b;
+transform: scale(1.05);
+}
+
+.love-message {
+font-size: 20px;
+line-height: 2;
+margin: 20px 0;
+color: #d81b60;
+text-align: center;
+font-family: 'Dancing Script', cursive;
+}
+
+.special-name {
+font-size: 32px;
+color: #e91e63;
+font-weight: bold;
+margin: 15px 0;
+text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+font-family: 'Pacifico', cursive;
+}
+
+.couple-icon {
+position: absolute;
+top: 10px;
+right: 10px;
+font-size: 40px;
+animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+
+.envelope {
+position: fixed;
+width: 200px;
+height: 120px;
+background-color: #f8bbd0;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+transition: all 0.5s;
+z-index: 100;
+animation: float-envelope 3s ease-in-out infinite;
+}
+
+@keyframes float-envelope {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+
+.envelope:before {
+content: '';
+position: absolute;
+top: 0;
+width: 0;
+height: 0;
+border-left: 100px solid transparent;
+border-right: 100px solid transparent;
+border-top: 70px solid #f48fb1;
+transform-origin: top;
+transform: rotateX(0deg);
+transition: all 0.5s;
+z-index: 5;
+}
+
+.envelope.open:before {
+transform: rotateX(180deg);
+}
+
+.envelope-text {
+color: white;
+font-size: 20px;
+font-weight: bold;
+z-index: 1;
+font-family: 'Pacifico', cursive;
+}
+
+.page-content {
+max-height: 60vh;
+overflow-y: auto;
+padding-right: 10px;
+}
+
+/* Scrollbar styling */
+.page-content::-webkit-scrollbar {
+width: 5px;
+}
+
+.page-content::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 10px;
+}
+
+.page-content::-webkit-scrollbar-thumb {
+background: #f8bbd0;
+border-radius: 10px;
+}
+
+.page-content::-webkit-scrollbar-thumb:hover {
+background: #f48fb1;
+}
+
+.confetti {
+position: absolute;
+width: 10px;
+height: 10px;
+background-color: #f00;
+opacity: 0;
+animation: confetti-fall 5s linear forwards;
+}
+
+@keyframes confetti-fall {
+0% {
+transform: translateY(-100vh) rotate(0deg);
+opacity: 1;
+}
+100% {
+transform: translateY(100vh) rotate(360deg);
+opacity: 0;
+}
+}
+
+.love-emoji {
+position: absolute;
+font-size: 20px;
+animation: float-emoji 10s linear forwards;
+opacity: 0;
+}
+
+@keyframes float-emoji {
+0% {
+transform: translate(0, 100vh) rotate(0deg);
+opacity: 1;
+}
+100% {
+transform: translate(calc(100vw * var(--random-x)), -100vh) rotate(360deg);
+opacity: 0;
+}
+}
+</style>
+</head>
+<body>
+<div class="envelope" id="envelope">
+<div class="envelope-text">For My GHUniya 💌</div>
+</div>
+
+<!-- Page 1 - Choice Page -->
+<div class="page" id="choicePage">
+<div class="couple-icon">👫</div>
+<div class="hearts-container" id="heartsContainer1"></div>
+<h1>Choose Your Path!</h1>
+<p>Pick the right one to see your special message 💖</p>
+
+<div class="choice-container">
+<div class="choice" id="catChoice">🐱</div>
+<div class="choice" id="bunnyChoice">🐰</div>
+</div>
+
+<div id="loserMessage" class="loser-message">LOSER! Try again 😜</div>
+</div>
+
+<!-- Page 2 - Greeting Page -->
+<div class="page" id="greetingPage">
+<div class="couple-icon">👫</div>
+<div class="hearts-container" id="heartsContainer2"></div>
+<h1>Hey GHUniya! ❤️❤️❤️</h1>
+<div class="heart">💖</div>
+<p>You made the right choice, my love! 💕</p>
+<button class="next-button" id="nextButton1">Continue to Your Surprise 💝</button>
+</div>
+
+<!-- Page 3 - Wifey Page -->
+<div class="page" id="wifePage">
+<div class="couple-icon">👫</div>
+<div class="hearts-container" id="heartsContainer3"></div>
+<h1>Happy Girlfriend Day! 💐</h1>
+<div class="special-name">To My Wifey 🥹🖤</div>
+<div class="heart">💝</div>
+<p>Every day with you feels like a dream come true ✨</p>
+<button class="next-button" id="nextButton2">See More Love 💘</button>
+</div>
+
+<!-- Page 4 - Love Message Page -->
+<div class="page" id="lovePage">
+<div class="couple-icon">👫</div>
+<div class="hearts-container" id="heartsContainer4"></div>
+<h1>For My BUNNY BOO 💕</h1>
+<div class="page-content">
+<div class="love-message">
+🌸 My beautiful GHUniya 🌸<br>
+🥰 You're the love of my life 🥰<br>
+💞 My heart beats only for you 💞<br>
+🌹 My sweetest Bunny Boo 🌹<br>
+💘 I'm forever yours 💘<br>
+🦋 My precious Guriya 🦋<br>
+✨ You make my world magical ✨
+</div>
+<div class="heart">💓</div>
+</div>
+<button class="next-button" id="nextButton3">More Heartfelt Words 💌</button>
+</div>
+
+<!-- Page 5 - Long Love Letter -->
+<div class="page" id="letterPage">
+<div class="couple-icon">👫</div>
+<div class="hearts-container" id="heartsContainer5"></div>
+<h1>MY LOVED OnE 💝</h1>
+<div class="page-content">
+<p>💖 I love you so much that I don't know if I could finish this paragraph because words really can't explain my love towards you 💖, God brought me you and I'm so happy that you're like my other half 💑 and without you I don't know where I'd be 💔 you keep me on the right track and you're always there for me through thick or thin 🤗</p>
+
+<p>💫 اگر تیرے بدلے کوئی سارا جہاں بھی دے تو با خدا ٹھکرا دوں 💫</p>
+
+<p>🌎 You are my world and I never want to lose you 💎, you'll never have to worry about me cheating or leaving you becoz you are the only one my everything 💍</p>
+
+<p>💌 Janww, THANK YOU loving me for who I'm 🙏, THANK YOU for making me laugh and smile when I'm sad or have a bad day 😊, I still get excited when I see your name pop up on my phone 📱, you are always on my mind 💭, you're all I want, all I need 💗.you are my whole entire world 🌍 you know I love you and I tell you everyday to remind you 💞</p>
+
+<p>💝 but you'll never know how much I love you becoz my love for you can't be expressed in words 📜</p>
+
+<p>🤗 I know I'm not the best, but I'll always be here for you if you let me 💕, how I wish that I could spend my whole life under the skies watching the Stars with you ✨? no amount of distance, pain, fights or differences in opinion can break my bond with you 💪</p>
+
+<p>👯 you are like my best of friends and deepest of lovers 💑, you are on my mind every second ⏱️, every minute 🕒, every hour 🕛, everyday 📅 and every single time I blink 👀</p>
+
+<p>💘 you fill all the space in my mind 🧠 and heart 💓</p>
+
+<p>💗 I love uhhhhh ✓ ✓ love uhhh so muchhhhhh 💗</p>
+
+<p>🕌 دعا ہے اللہ پاک سے کہ وہ آپ کو دیت کے ذروں چاند سورج کی کرنوں پانی کے قطروں سے بھی زیادہ خوشیاں عطا فرمائے بر خوشی بر نعمت عطا فرمائے // آمین یا رب العالمين 🕌</p>
+
+<p>💌 I cannot find words to tell you how much I love you 💬. you mean everything to me 💎.plz stay by my side forever ⏳ I cannot possibly think of loving anyone else the way I love you 💞.i can't imagine my life without you 💔.you mean so much to me 💖.you filled my life with music 🎶 color 🎨 can't imagine my life and laughter 😂.I without you or a life before you or a life after you .I will never ever be able to love anyone as much as I have loved you 💘</p>
+
+<p>🌹 تمہاری بر چیز میری روح کو شفا بخشتی ہے لفظ ہنسی ، آواز اور چہرہ 🌹</p>
+
+<p>🍀 I'm LUCKY to have uhh 🍀</p>
+
+<p>📜 مجھے یہ نہیں پتہ کہ زندگی کتنی بڑی ہے مگر جتنی بھی بڑی ہے اس میں آپ کی اہمیت سب سے بڑی ہے میری دعا ہے کہ خوشیوں کے سب موتی تیرا مقدر ہوں سمندر کے پھول چہرے پھول لہجہے تیرے ہمسفر ہوں 📜</p>
+
+<p>💞 I love you meri pyaari GHUNIYA 🥹🥺🖤💗💗💗 💞</p>
+</div>
+<div class="heart">💖</div>
+<div class="signature">Forever Yours 💘</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// DOM Elements
+const envelope = document.getElementById('envelope');
+const catChoice = document.getElementById('catChoice');
+const bunnyChoice = document.getElementById('bunnyChoice');
+const loserMessage = document.getElementById('loserMessage');
+const choicePage = document.getElementById('choicePage');
+const greetingPage = document.getElementById('greetingPage');
+const wifePage = document.getElementById('wifePage');
+const lovePage = document.getElementById('lovePage');
+const letterPage = document.getElementById('letterPage');
+const nextButton1 = document.getElementById('nextButton1');
+const nextButton2 = document.getElementById('nextButton2');
+const nextButton3 = document.getElementById('nextButton3');
+
+// Hearts containers
+const heartsContainers = [
+document.getElementById('heartsContainer1'),
+document.getElementById('heartsContainer2'),
+document.getElementById('heartsContainer3'),
+document.getElementById('heartsContainer4'),
+document.getElementById('heartsContainer5')
+];
+
+// Envelope click event
+envelope.addEventListener('click', function() {
+envelope.classList.add('open');
+setTimeout(() => {
+envelope.style.display = 'none';
+choicePage.classList.add('active');
+startHearts(heartsContainers[0]);
+createFloatingEmojis();
+}, 800);
+});
+
+// Event Listeners
+catChoice.addEventListener('click', function() {
+loserMessage.style.display = 'block';
+createConfetti(false);
+setTimeout(() => {
+loserMessage.style.display = 'none';
+}, 1500);
+});
+
+bunnyChoice.addEventListener('click', function() {
+createConfetti(true);
+setTimeout(() => {
+choicePage.classList.remove('active');
+greetingPage.classList.add('active');
+startHearts(heartsContainers[1]);
+createFloatingEmojis();
+}, 1000);
+});
+
+nextButton1.addEventListener('click', function() {
+greetingPage.classList.remove('active');
+wifePage.classList.add('active');
+startHearts(heartsContainers[2]);
+createFloatingEmojis();
+});
+
+nextButton2.addEventListener('click', function() {
+wifePage.classList.remove('active');
+lovePage.classList.add('active');
+startHearts(heartsContainers[3]);
+createFloatingEmojis();
+});
+
+nextButton3.addEventListener('click', function() {
+lovePage.classList.remove('active');
+letterPage.classList.add('active');
+startHearts(heartsContainers[4]);
+createFloatingEmojis();
+});
+
+// Heart animation function
+function startHearts(container) {
+// Clear existing hearts
+container.innerHTML = '';
+
+// Create floating hearts
+setInterval(() => createHeart(container), 150);
+}
+
+function createHeart(container) {
+const heart = document.createElement('div');
+heart.innerHTML = getRandomHeart();
+heart.classList.add('heart-particle');
+
+// Random position at the bottom
+const startPositionX = Math.random() * 100;
+heart.style.left = `${startPositionX}%`;
+heart.style.bottom = '-20px';
+
+// Random animation duration
+const duration = 3 + Math.random() * 3;
+heart.style.animationDuration = `${duration}s`;
+
+// Random size
+const size = 15 + Math.random() * 25;
+heart.style.fontSize = `${size}px`;
+
+container.appendChild(heart);
+
+// Remove heart after animation completes
+setTimeout(() => {
+heart.remove();
+}, duration * 1000);
+}
+
+function getRandomHeart() {
+const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '💔', '❣️', '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟'];
+return hearts[Math.floor(Math.random() * hearts.length)];
+}
+
+function createConfetti(isSuccess) {
+const colors = isSuccess ? ['#e91e63', '#ff4081', '#f8bbd0', '#fce4ec'] : ['#f44336', '#ff7961', '#ffebee'];
+
+for (let i = 0; i < 50; i++) {
+const confetti = document.createElement('div');
+confetti.classList.add('confetti');
+confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+confetti.style.left = `${Math.random() * 100}%`;
+confetti.style.width = `${5 + Math.random() * 10}px`;
+confetti.style.height = `${5 + Math.random() * 10}px`;
+confetti.style.animationDuration = `${2 + Math.random() * 3}s`;
+confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+
+document.body.appendChild(confetti);
+
+setTimeout(() => {
+confetti.remove();
+}, 5000);
+}
+}
+
+function createFloatingEmojis() {
+const loveEmojis = ['❤️', '💕', '💖', '💗', '💘', '💙', '💚', '💛', '💜', '🧡', '🖤', '💝', '💞', '💟', '❣️', '💌', '💓', '💔'];
+
+for (let i = 0; i < 20; i++) {
+const emoji = document.createElement('div');
+emoji.classList.add('love-emoji');
+emoji.innerHTML = loveEmojis[Math.floor(Math.random() * loveEmojis.length)];
+emoji.style.left = `${Math.random() * 100}%`;
+emoji.style.top = `${100 + Math.random() * 20}%`;
+emoji.style.fontSize = `${20 + Math.random() * 30}px`;
+emoji.style.setProperty('--random-x', Math.random() * 2 - 1);
+emoji.style.animationDuration = `${10 + Math.random() * 10}s`;
+emoji.style.animationDelay = `${Math.random() * 5}s`;
+
+document.body.appendChild(emoji);
+
+setTimeout(() => {
+emoji.remove();
+}, 15000);
+}
+}
+
+// Initial floating emojis
+createFloatingEmojis();
+setInterval(createFloatingEmojis, 3000);
+});
+</script>
+</body>
+</html>
